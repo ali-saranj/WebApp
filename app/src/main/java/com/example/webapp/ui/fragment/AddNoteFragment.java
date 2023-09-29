@@ -1,4 +1,4 @@
-package com.example.webapp.ui.fragment.activity;
+package com.example.webapp.ui.fragment;
 
 import android.os.Bundle;
 
