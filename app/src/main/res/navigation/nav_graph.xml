@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/showAllNoteFragment">
+
+    <fragment
+        android:id="@+id/showAllNoteFragment"
+        android:name="com.example.webapp.ui.fragment.activity.ShowAllNoteFragment"
+        android:label="fragment_show_all_note"
+        tools:layout="@layout/fragment_show_all_note" >
+        <action
+            android:id="@+id/action_showAllNoteFragment_to_singelNoteFragment"
+            app:destination="@id/singelNoteFragment" />
+        <action
+            android:id="@+id/action_showAllNoteFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.webapp.ui.fragment.activity.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.webapp.ui.fragment.activity.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/singelNoteFragment"
+        android:name="com.example.webapp.ui.fragment.activity.SingelNoteFragment"
+        android:label="fragment_singel_note"
+        tools:layout="@layout/fragment_singel_note" />
+    <fragment
+        android:id="@+id/myNoteFragment"
+        android:name="com.example.webapp.ui.fragment.activity.MyNoteFragment"
+        android:label="fragment_my_note"
+        tools:layout="@layout/fragment_my_note" >
+        <action
+            android:id="@+id/action_myNoteFragment_to_singelNoteFragment"
+            app:destination="@id/singelNoteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.example.webapp.ui.fragment.activity.AddNoteFragment"
+        android:label="fragment_add_note"
+        tools:layout="@layout/fragment_add_note" />
+</navigation>
