@@ -12,10 +12,10 @@ import com.example.webapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AddNoteFragment#newInstance} factory method to
+ * Use the {@link AddPostFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddNoteFragment extends Fragment {
+public class AddPostFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class AddNoteFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public AddNoteFragment() {
+    public AddPostFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class AddNoteFragment extends Fragment {
      * @return A new instance of fragment AddNoteFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AddNoteFragment newInstance(String param1, String param2) {
-        AddNoteFragment fragment = new AddNoteFragment();
+    public static AddPostFragment newInstance(String param1, String param2) {
+        AddPostFragment fragment = new AddPostFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class AddNoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_note, container, false);
+        return inflater.inflate(R.layout.fragment_add_post, container, false);
     }
 }

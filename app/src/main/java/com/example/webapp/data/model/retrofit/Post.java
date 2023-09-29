@@ -2,7 +2,7 @@ package com.example.webapp.data.model.retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseItem{
+public class Post {
 
 	@SerializedName("image")
 	private String image;

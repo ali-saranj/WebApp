@@ -1,7 +1,5 @@
 package com.example.webapp.ui.viewModel;
 
-import com.example.webapp.data.model.retrofit.ResponseItem;
-
 public class Post {
     String id;
     String title,description,image,data,username;
@@ -14,7 +12,7 @@ public class Post {
         this.data = data;
         this.username = username;
     }
-    public Post(ResponseItem post){
+    public Post(com.example.webapp.data.model.retrofit.Post post){
         this.id = post.getId();
         this.title = post.getTitel();
         this.description = post.getDescription();
