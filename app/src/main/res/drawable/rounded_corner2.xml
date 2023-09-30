@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ /**
+  ~  * Created by Mohammed Alsudani on 7/28/19 5:55 PM
+  ~ *  linkedin =  https://www.linkedin.com/in/alsudani-mohammed-259a28152
+  ~  * Copyright (c) 2019 . All rights reserved.
+  ~  * Last modified 7/28/19 5:55 PM
+  ~  */
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/grey_200" />
+    <stroke
+        android:width="0dip"
+        android:color="@color/grey_200" />
+    <corners android:radius="15dip" />
+    <padding
+        android:bottom="0dip"
+        android:left="0dip"
+        android:right="0dip"
+        android:top="0dip" />
+</shape>

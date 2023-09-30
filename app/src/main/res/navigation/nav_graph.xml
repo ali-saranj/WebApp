@@ -11,16 +11,6 @@
         android:label="fragment_show_all_note"
         tools:layout="@layout/fragment_show_all_post" />
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.webapp.ui.fragment.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
-    <fragment
-        android:id="@+id/registerFragment"
-        android:name="com.example.webapp.ui.fragment.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/fragment_register" />
-    <fragment
         android:id="@+id/singelNoteFragment"
         android:name="com.example.webapp.ui.fragment.SingelPostFragment"
         android:label="fragment_singel_note"

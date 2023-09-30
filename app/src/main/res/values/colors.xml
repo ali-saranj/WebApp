@@ -2,4 +2,19 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#f3776b</color>
+    <color name="colorPrimaryDark">#5c2c2c</color>
+    <color name="colorAccent">#09d099</color>
+    <color name="light_font">#272727</color>
+    <color name="text_white">#ebf8f5</color>
+    <color name="text_shadow">#d2d2d2</color>
+    <color name="DarkTextColor">#040404</color>
+    <color name="notmalTextColor">#1f1f1f</color>
+    <color name="text_hint">#a3b0ba</color>
+    <color name="textligthcolor">#b0bac9</color>
+    <color name="progress_primary">@color/white</color>
+    <color name="progress_secondary">@color/gray_scale</color>
+    <color name="progress_max_active">@color/white</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="gray_scale">#8affffff</color>
 </resources>
