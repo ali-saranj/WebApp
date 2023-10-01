@@ -20,6 +20,9 @@ import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
 import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
+import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
+import com.example.webapp.ui.activity.MainActivity;
+import com.example.webapp.ui.viewModel.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +32,8 @@ public class LoginFragment extends Fragment {
 
     private EditText username_login,password_login;
     private Button btn_login;
+
+    SharedpreferencesUser sharedpreferencesUser;
 
 
     @Override
@@ -41,6 +46,9 @@ public class LoginFragment extends Fragment {
         password_login = view.findViewById(R.id.Password_login);
         btn_login = view.findViewById(R.id.SignIn);
 
+        sharedpreferencesUser = new SharedpreferencesUser(getContext());
+
+        checkuserlogin();
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +75,7 @@ public class LoginFragment extends Fragment {
                 String output = obj.getMessage();
                 if (output.equals("ok")){
                     Toast.makeText(getContext(), "با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
-                    SharedPreferences sp = getContext().getSharedPreferences("prefs",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("username",username_login.getText().toString());
-                    editor.putString("password",password_login.getText().toString());
-                    editor.apply();
-                    //SharedPreferences
+                    sharedpreferencesUser.addUser(new User(0,username_login.getText().toString(),password_login.getText().toString()));
                     checkuserlogin();
                 }
                 if (output.equals("error")){
@@ -105,12 +108,8 @@ public class LoginFragment extends Fragment {
 
 
     private void checkuserlogin() {
-        SharedPreferences sp = getContext().getSharedPreferences("prefs",MODE_PRIVATE);
-        if (sp.contains("username")){
-
-            //Ali
-
-
+        if (sharedpreferencesUser.CheckUserIsExist()){
+            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
         }
 
     }

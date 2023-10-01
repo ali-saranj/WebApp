@@ -17,6 +17,7 @@ import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
 import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
+import com.example.webapp.ui.activity.MainActivity;
 import com.example.webapp.ui.viewModel.User;
 
 import retrofit2.Call;
@@ -69,8 +70,7 @@ public class RegisterFragment extends Fragment {
                 if (output.equals("ok")) {
                     Toast.makeText(getContext(), "با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
 
-                    //Ali
-
+                    getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
 
                 }
                 if (output.equals("no")){
