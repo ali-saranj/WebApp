@@ -4,10 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/add_data"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/baseline_note_add_24"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"
+            />
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>

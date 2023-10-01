@@ -31,4 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.bottomNavigation,
                 navHostFragment.getNavController());
     }
+
+
+
+
 }

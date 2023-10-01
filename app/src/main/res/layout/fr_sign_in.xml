@@ -26,6 +26,7 @@
 
 
             <EditText
+                android:id="@+id/username_login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -47,7 +48,7 @@
 
 
             <EditText
-                android:id="@+id/Password"
+                android:id="@+id/Password_login"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"

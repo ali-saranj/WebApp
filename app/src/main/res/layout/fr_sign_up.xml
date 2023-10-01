@@ -25,6 +25,7 @@
 
 
             <EditText
+                android:id="@+id/username_Register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
@@ -47,7 +48,7 @@
 
 
             <EditText
-                android:id="@+id/Password"
+                android:id="@+id/password_Register"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
