@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ import com.example.webapp.R;
 import com.example.webapp.data.Config;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
+import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
+import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -43,10 +46,12 @@ import retrofit2.Response;
 public class CustomDialog_add_data extends DialogFragment {
 
     private Bitmap bitmap;
-    private ImageView imageView;
+//    private ImageView imageView;
     private EditText enterTitle, enterNote;
     private static String username;
     private Button btnSubmit;
+
+    SharedpreferencesUser sharedpreferencesUser;
 
     @Nullable
     @Override
@@ -58,6 +63,8 @@ public class CustomDialog_add_data extends DialogFragment {
         enterNote = view.findViewById(R.id.enter_note);
         btnSubmit = view.findViewById(R.id.btn_add_data);
 
+        sharedpreferencesUser = new SharedpreferencesUser(getContext());
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +73,12 @@ public class CustomDialog_add_data extends DialogFragment {
             }
         });
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openImageChooser();
-            }
-        });
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                openImageChooser();
+//            }
+//        });
 
         return view;
     }
@@ -95,7 +102,6 @@ public class CustomDialog_add_data extends DialogFragment {
         }
     }
 
-    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -104,7 +110,7 @@ public class CustomDialog_add_data extends DialogFragment {
                 Uri imageUri = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
-                    imageView.setImageBitmap(bitmap);
+//                    imageView.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -113,7 +119,7 @@ public class CustomDialog_add_data extends DialogFragment {
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
                     Toast.makeText(requireContext(), bitmap + "", Toast.LENGTH_SHORT).show();
-                    imageView.setImageBitmap(bitmap);
+//                    imageView.setImageBitmap(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -133,22 +139,23 @@ public class CustomDialog_add_data extends DialogFragment {
     private void insertData() {
         if (validateInputs()) {
 
-            SharedPreferences sharedPreferences = requireContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-            username = sharedPreferences.getString("username", "");
+            //getUsername
+            username = sharedpreferencesUser.getUser().getUsername();
 
             //InsertData
             Iclient api = Client.getClient().create(Iclient.class);
 
-            Call<Post> call = api.Insert_data(username,enterTitle.getText().toString(),enterNote.getText().toString());
-            call.enqueue(new Callback<Post>() {
+            Call<Model_login> call = api.Insert_data(username,enterTitle.getText().toString(),enterNote.getText().toString());
+
+            call.enqueue(new Callback<Model_login>() {
                 @Override
-                public void onResponse(Call<Post> call, Response<Post> response) {
-                    Toast.makeText(getContext(), "this is ok", Toast.LENGTH_SHORT).show();
+                public void onResponse(Call<Model_login> call, Response<Model_login> response) {
+                    Log.d( "onResponse: ",response.body().getMessage());
                 }
 
                 @Override
-                public void onFailure(Call<Post> call, Throwable t) {
-                    Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                public void onFailure(Call<Model_login> call, Throwable t) {
+                    Toast.makeText(getContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -159,15 +166,15 @@ public class CustomDialog_add_data extends DialogFragment {
     private boolean validateInputs() {
         boolean isValid = true;
 
-        if (enterTitle.getText().toString().trim().isEmpty() || enterNote.getText().toString().trim().isEmpty()) {
+        if (enterTitle.getText().toString().trim().isEmpty() && enterNote.getText().toString().trim().isEmpty()) {
 
             Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-        if (bitmap == null || bitmap.getWidth() == 0 || bitmap.getHeight() == 0) {
-            Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
-            isValid = false;
-        }
+//        if (bitmap == null || bitmap.getWidth() == 0 || bitmap.getHeight() == 0) {
+//            Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
+//            isValid = false;
+//        }
 
         return isValid;
     }

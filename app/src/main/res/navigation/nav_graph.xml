@@ -11,18 +11,8 @@
         android:label="fragment_show_all_note"
         tools:layout="@layout/fragment_show_all_post" />
     <fragment
-        android:id="@+id/singelNoteFragment"
-        android:name="com.example.webapp.ui.fragment.SingelPostFragment"
-        android:label="fragment_singel_note"
-        tools:layout="@layout/fragment_singel_post" />
-    <fragment
         android:id="@+id/myNoteFragment"
         android:name="com.example.webapp.ui.fragment.MyPostFragment"
         android:label="fragment_my_note"
         tools:layout="@layout/fragment_my_post" />
-    <fragment
-        android:id="@+id/addNoteFragment"
-        android:name="com.example.webapp.ui.fragment.AddPostFragment"
-        android:label="fragment_add_note"
-        tools:layout="@layout/fragment_add_post" />
 </navigation>

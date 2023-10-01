@@ -32,9 +32,9 @@ public interface Iclient {
 
     //for_Add_data
     @FormUrlEncoded
-    @POST("Insert_data.php")
-    Call<Post> Insert_data (@Field("username") String username,
+    @POST("Insert_weblog.php")
+    Call<Model_login> Insert_data (@Field("username") String username,
                             @Field("title") String title,
-                            @Field("note")String note);
+                            @Field("des")String note);
 
 }
