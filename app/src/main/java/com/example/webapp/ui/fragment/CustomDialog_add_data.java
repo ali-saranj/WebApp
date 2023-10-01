@@ -33,8 +33,8 @@ import com.example.webapp.data.Config;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
 import com.example.webapp.data.model.retrofit.Model_login;
-import com.example.webapp.data.model.retrofit.Post;
 import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
+import com.example.webapp.ui.viewModel.Post;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -145,12 +145,11 @@ public class CustomDialog_add_data extends DialogFragment {
             //InsertData
             Iclient api = Client.getClient().create(Iclient.class);
 
-            Call<Model_login> call = api.Insert_data(username,enterTitle.getText().toString(),enterNote.getText().toString());
+            Call<Model_login> call = api.Insert_data(enterTitle.getText().toString(),enterNote.getText().toString(),username);
 
             call.enqueue(new Callback<Model_login>() {
                 @Override
                 public void onResponse(Call<Model_login> call, Response<Model_login> response) {
-                    Log.d( "onResponse: ",response.body().getMessage());
                 }
 
                 @Override

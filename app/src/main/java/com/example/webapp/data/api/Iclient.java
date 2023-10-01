@@ -20,21 +20,22 @@ public interface Iclient {
     //for_Register
     @FormUrlEncoded
     @POST("Regester_user.php")
-    Call<Model_login> Register (@Field("username") String username,
-                         @Field("password") String password);
+    Call<Model_login> Register(@Field("username") String username,
+                               @Field("password") String password);
 
     //for_login
     @FormUrlEncoded
     @POST("Login_user.php")
-    Call<Model_login> login (@Field("username") String username,
-                             @Field("password") String password);
+    Call<Model_login> login(@Field("username") String username,
+                            @Field("password") String password);
 
 
     //for_Add_data
     @FormUrlEncoded
     @POST("Insert_weblog.php")
-    Call<Model_login> Insert_data (@Field("username") String username,
-                            @Field("title") String title,
-                            @Field("des")String note);
-
+    Call<Model_login> Insert_data(
+            @Field("title") String title,
+            @Field("des") String note,
+            @Field("username") String username
+    );
 }
