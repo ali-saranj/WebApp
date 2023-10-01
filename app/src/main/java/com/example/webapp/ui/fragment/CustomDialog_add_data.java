@@ -52,8 +52,7 @@ public class CustomDialog_add_data extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_add_data, container, false);
-
-        getDialog().setTitle("اضافه کردن محصول جدید");
+        
 
         enterTitle = view.findViewById(R.id.enter_title);
         enterNote = view.findViewById(R.id.enter_note);

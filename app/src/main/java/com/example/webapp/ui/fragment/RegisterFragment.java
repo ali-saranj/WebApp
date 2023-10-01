@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.webapp.R;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
+import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
 import com.example.webapp.ui.viewModel.User;
 
@@ -59,16 +60,28 @@ public class RegisterFragment extends Fragment {
     private void create_account() {
         Iclient client = Client.getClient().create(Iclient.class);
 
-        Call<User> call = client.Register(username.getText().toString(),password.getText().toString());
-        call.enqueue(new Callback<User>() {
+        Call<Model_login> call = client.Register(username.getText().toString(),password.getText().toString());
+        call.enqueue(new Callback<Model_login>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Toast.makeText(getContext(), "this is ok", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(),ShowAllPostFragment.class));
+            public void onResponse(Call<Model_login> call, Response<Model_login> response) {
+                Model_login obj = response.body();
+                String output = obj.getMessage();
+                if (output.equals("ok")) {
+                    Toast.makeText(getContext(), "با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+
+                    //Ali
+
+
+                }
+                if (output.equals("no")){
+                    Toast.makeText(getContext(), "همچین کاربری موجود است لطفا از نام کاربری دیگری استفاده کنید!", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Model_login> call, Throwable t) {
                 Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
             }
         });

@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://uranussite.ir/";
+    private static final String BASE_URL = "https://uranussite.ir/Weblog/";
     public static Retrofit getClient() {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()

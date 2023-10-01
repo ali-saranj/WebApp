@@ -1,5 +1,6 @@
 package com.example.webapp.data.api;
 
+import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
 import com.example.webapp.ui.viewModel.User;
 
@@ -19,14 +20,14 @@ public interface Iclient {
     //for_Register
     @FormUrlEncoded
     @POST("Regester_user.php")
-    Call<User> Register (@Field("username") String username,
+    Call<Model_login> Register (@Field("username") String username,
                          @Field("password") String password);
 
     //for_login
     @FormUrlEncoded
     @POST("Login_user.php")
-    Call<Post> login (@Field("username") String username,
-                         @Field("password") String password);
+    Call<Model_login> login (@Field("username") String username,
+                             @Field("password") String password);
 
 
     //for_Add_data

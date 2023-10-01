@@ -1,5 +1,9 @@
 package com.example.webapp.ui.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 import com.example.webapp.R;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
+import com.example.webapp.data.model.retrofit.Model_login;
 import com.example.webapp.data.model.retrofit.Post;
 
 import retrofit2.Call;
@@ -54,17 +59,30 @@ public class LoginFragment extends Fragment {
 
     private void login_user() {
         Iclient client = Client.getClient().create(Iclient.class);
-
-        Call<Post> call = client.login(username_login.getText().toString(),username_login.getText().toString());
-        call.enqueue(new Callback<Post>() {
+        Call<Model_login> call = client.login(username_login.getText().toString(),password_login.getText().toString());
+        call.enqueue(new Callback<Model_login>() {
             @Override
-            public void onResponse(Call<Post> call, Response<Post> response) {
-                Toast.makeText(getContext(), "this is ok", Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<Model_login> call, Response<Model_login> response) {
+                Model_login obj = response.body();
+                String output = obj.getMessage();
+                if (output.equals("ok")){
+                    Toast.makeText(getContext(), "با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+                    SharedPreferences sp = getContext().getSharedPreferences("prefs",MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("username",username_login.getText().toString());
+                    editor.putString("password",password_login.getText().toString());
+                    editor.apply();
+                    //SharedPreferences
+                    checkuserlogin();
+                }
+                if (output.equals("error")){
+                    Toast.makeText(getContext(), "همچین کاربری وجود ندارد لطفا ثبت نام کنید", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
-                Toast.makeText(getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Model_login> call, Throwable t) {
+                Toast.makeText(getContext(), "مشکل برقراری ارتباط", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,4 +102,17 @@ public class LoginFragment extends Fragment {
         }
         return isValid;
     }
+
+
+    private void checkuserlogin() {
+        SharedPreferences sp = getContext().getSharedPreferences("prefs",MODE_PRIVATE);
+        if (sp.contains("username")){
+
+            //Ali
+
+
+        }
+
+    }
+
 }
