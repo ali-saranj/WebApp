@@ -1,80 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:background="@android:color/white"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/post_iv"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:scaleType="fitXY"
-       />
+    <data>
+        <import type="com.example.webapp.ui.viewModel.Post"/>
+        <variable
+            name="post"
+            type="Post" />
+    </data>
 
-    <LinearLayout
-        android:id="@+id/post_content"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/post_iv"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+        android:layout_margin="8dp"
+        android:background="@color/white">
 
-        <RelativeLayout
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:gravity="center">
+            android:background="@color/white"
+            android:padding="8dp">
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="18dp"
-                android:layout_marginLeft="5dp"
-                android:text="Mo Alsudani"
-                android:textColor="@color/DarkTextColor"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="8dp"
-            android:layout_height="2dp"
-            android:layout_gravity="center"
-            android:background="#797979" />
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+                android:text="@{post.title}"
+                tools:text="title"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"/>
 
             <TextView
+                android:id="@+id/tv_dis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginLeft="5dp"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-                android:textColor="@color/notmalTextColor"
-                android:textSize="12sp" />
+                android:text="@{post.description}"
+                tools:text="@tools:sample/lorem/random"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"
+                android:gravity="left"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="120dp"
-        android:layout_height="3dp"
-        android:layout_below="@+id/post_likes_layout"
-        android:layout_centerHorizontal="true"
-        android:background="#d2d2d2" />
-
-
-</RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

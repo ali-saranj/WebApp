@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface Iclient {
-    @GET("Weblog/Select_Weblog.php")
+    @GET("Select_Weblog.php")
     Call<List<Post>> getAllPost();
 
 

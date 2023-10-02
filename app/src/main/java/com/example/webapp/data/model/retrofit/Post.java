@@ -7,7 +7,7 @@ public class Post {
 	@SerializedName("image")
 	private String image;
 
-	@SerializedName("Description")
+	@SerializedName("des")
 	private String description;
 
 	@SerializedName("Username")
