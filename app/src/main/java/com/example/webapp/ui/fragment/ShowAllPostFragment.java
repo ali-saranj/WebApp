@@ -19,6 +19,7 @@ import com.example.webapp.R;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
 import com.example.webapp.data.model.retrofit.Post;
+import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
 import com.example.webapp.databinding.FragmentShowAllPostBinding;
 import com.example.webapp.ui.adapter.ItemPostAdapter;
 
@@ -35,10 +36,13 @@ public class ShowAllPostFragment extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     List<com.example.webapp.ui.viewModel.Post> modelProducts;
     private SearchView searchView;
+
+    private SharedpreferencesUser sharedpreferencesUser;
+    private String username;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentShowAllPostBinding.inflate(inflater,container,false);
+        binding = FragmentShowAllPostBinding.inflate(inflater, container, false);
 
         binding.SwipeRefresh.findViewById(R.id.Swipe_Refresh);
         swipeRefreshLayout = binding.SwipeRefresh;
@@ -58,6 +62,10 @@ public class ShowAllPostFragment extends Fragment {
         });
 
 
+        //getUsernameForShow
+        username = sharedpreferencesUser.getUser().getUsername();
+
+
         //SearchView
         searchView = binding.searchView.findViewById(R.id.search_view);
         searchView.clearFocus();
@@ -75,8 +83,6 @@ public class ShowAllPostFragment extends Fragment {
                 return true;
             }
         });
-
-
 
 
         getData();
@@ -100,13 +106,13 @@ public class ShowAllPostFragment extends Fragment {
 
     private void setUpRv(List<Post> body) {
         ArrayList<com.example.webapp.ui.viewModel.Post> posts = new ArrayList<>();
-        if (body!=null) {
+        if (body != null) {
             for (Post post : body) {
                 posts.add(new com.example.webapp.ui.viewModel.Post(post));
             }
         }
-        binding.rvAll.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        binding.rvAll.setAdapter(new ItemPostAdapter(posts,getContext()));
+        binding.rvAll.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        binding.rvAll.setAdapter(new ItemPostAdapter(posts, getContext()));
 
 
     }
@@ -115,17 +121,17 @@ public class ShowAllPostFragment extends Fragment {
     private void search_view(String text) {
         List<com.example.webapp.ui.viewModel.Post> filter_list = new ArrayList<>();
 
-        for (com.example.webapp.ui.viewModel.Post item : modelProducts){
+        for (com.example.webapp.ui.viewModel.Post item : modelProducts) {
 
-            if (item.getTitle().toLowerCase().contains(text.toLowerCase())){
+            if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
                 filter_list.add(item);
             }
 
         }
 
-        if (filter_list.isEmpty()){
+        if (filter_list.isEmpty()) {
             Toast.makeText(getContext(), "this not found", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
 
             //Ali
 
