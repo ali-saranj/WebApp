@@ -13,6 +13,7 @@ import com.example.webapp.databinding.ItemPostBinding;
 import com.example.webapp.ui.viewModel.Post;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemPostAdapter extends RecyclerView.Adapter<ItemPostAdapter.ViewHolder> {
 
@@ -23,6 +24,12 @@ public class ItemPostAdapter extends RecyclerView.Adapter<ItemPostAdapter.ViewHo
         this.dataModelList = dataModelList;
         context = ctx;
     }
+
+    public void setData(List<Post> filterList) {
+        this.dataModelList = new ArrayList<>(filterList);
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public ItemPostAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,

@@ -6,7 +6,26 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linearLayout">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/animation_register"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            tools:ignore="MissingClass" />
+
+    </RelativeLayout>
+
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

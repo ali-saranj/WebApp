@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_all"
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layout_width="373dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/search_view_bg"
+        android:hint="سرچ کنید ..."
+        tools:ignore="MissingConstraints" />
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/Swipe_Refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_view"
+        tools:ignore="MissingClass,MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:ignore="MissingConstraints" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>
