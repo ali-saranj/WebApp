@@ -33,9 +33,10 @@ public interface Iclient {
     //for_Add_data
     @FormUrlEncoded
     @POST("Insert_weblog.php")
-    Call<Model_login> Insert_data(
+    Call<com.example.webapp.ui.viewModel.Post> Insert_data(
             @Field("title") String title,
             @Field("des") String note,
             @Field("username") String username
+            ,@Field("image") String image
     );
 }

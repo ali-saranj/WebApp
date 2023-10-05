@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnAddPost.setOnClickListener { CustomDialog_add_data().show(supportFragmentManager,"") }
-        binding.btnAddPost.hide()
+        binding.btnAddPost.show()
         setUpNav()
     }
 

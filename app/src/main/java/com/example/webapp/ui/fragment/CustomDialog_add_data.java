@@ -3,6 +3,7 @@ package com.example.webapp.ui.fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -33,8 +34,8 @@ import com.example.webapp.data.Config;
 import com.example.webapp.data.api.Client;
 import com.example.webapp.data.api.Iclient;
 import com.example.webapp.data.model.retrofit.Model_login;
+import com.example.webapp.data.model.retrofit.Post;
 import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
-import com.example.webapp.ui.viewModel.Post;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -46,7 +47,7 @@ import retrofit2.Response;
 public class CustomDialog_add_data extends DialogFragment {
 
     private Bitmap bitmap;
-//    private ImageView imageView;
+    private ImageView enter_image;
     private EditText enterTitle, enterNote;
     private static String username;
     private Button btnSubmit;
@@ -62,6 +63,7 @@ public class CustomDialog_add_data extends DialogFragment {
         enterTitle = view.findViewById(R.id.enter_title);
         enterNote = view.findViewById(R.id.enter_note);
         btnSubmit = view.findViewById(R.id.btn_add_data);
+        enter_image = view.findViewById(R.id.enter_image);
 
         sharedpreferencesUser = new SharedpreferencesUser(getContext());
 
@@ -73,20 +75,26 @@ public class CustomDialog_add_data extends DialogFragment {
             }
         });
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                openImageChooser();
-//            }
-//        });
+        enter_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openImageChooser();
+            }
+        });
 
         return view;
     }
 
     private void openImageChooser() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA}, Config.REQUEST_CAMERA_PERMISSION);
-        } else {
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA},
+                    Config.REQUEST_CAMERA_PERMISSION);
+        }
+        else
+        {
+
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -94,10 +102,10 @@ public class CustomDialog_add_data extends DialogFragment {
             Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
             Intent chooser = Intent.createChooser(intent, "انتخاب عکس");
-            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{cameraIntent});
+            chooser.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { cameraIntent });
 
-            if (chooser.resolveActivity(requireContext().getPackageManager()) != null) {
-                startActivityForResult(chooser, Config.REQUEST_IMAGE_Camera);
+            if (chooser.resolveActivity(getContext().getPackageManager()) != null) {
+                startActivityForResult(chooser,Config.REQUEST_IMAGE_Camera);
             }
         }
     }
@@ -107,25 +115,40 @@ public class CustomDialog_add_data extends DialogFragment {
 
         if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             if (requestCode == Config.REQUEST_IMAGE_Camera) {
+                // عکس انتخاب شد
                 Uri imageUri = data.getData();
+                // انجام عملیات مرتبط با عکس
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
-//                    imageView.setImageBitmap(bitmap);
+                    //Getting the Bitmap from Gallery
+                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                    //Setting the Bitmap to ImageView
+                    enter_image.setImageBitmap(bitmap);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == Config.REQUEST_IMAGE_GALLERY) {
-                Uri imageUri = data.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(), imageUri);
-                    Toast.makeText(requireContext(), bitmap + "", Toast.LENGTH_SHORT).show();
-//                    imageView.setImageBitmap(bitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                Toast.makeText(requireContext(), "nulll", Toast.LENGTH_SHORT).show();
             }
+            else if (requestCode == Config.REQUEST_IMAGE_GALLERY) {
+                // عکس از گالری انتخاب شد
+                Uri imageUri = data.getData();
+                // انجام عملیات مرتبط با عکس از گالری
+                try {
+                    //Getting the Bitmap from Gallery
+                    bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), imageUri);
+                    Toast.makeText(getContext(), bitmap + "", Toast.LENGTH_SHORT).show();
+                    //Setting the Bitmap to ImageView
+                    enter_image.setImageBitmap(bitmap);
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                Toast.makeText(getContext(), "nulll", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -133,32 +156,50 @@ public class CustomDialog_add_data extends DialogFragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        String encodedImage =
+                Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
 
-    private void insertData() {
-        if (validateInputs()) {
+    private void insertData()
+    {
 
+        if (validateInputs())
+        {
             //getUsername
             username = sharedpreferencesUser.getUser().getUsername();
 
+            String image = getStringImage(bitmap);
             //InsertData
             Iclient api = Client.getClient().create(Iclient.class);
 
-            Call<Model_login> call = api.Insert_data(enterTitle.getText().toString(),enterNote.getText().toString(),username);
+            Call<com.example.webapp.ui.viewModel.Post> call = api.Insert_data(enterTitle.getText().toString(),
+                    enterNote.getText().toString()
+                    ,username,image);
 
-            call.enqueue(new Callback<Model_login>() {
+            call.enqueue(new Callback<com.example.webapp.ui.viewModel.Post>() {
                 @Override
-                public void onResponse(Call<Model_login> call, Response<Model_login> response) {
+                public void onResponse(Call<com.example.webapp.ui.viewModel.Post> call, Response<com.example.webapp.ui.viewModel.Post> response)
+                {
+                    if(response.isSuccessful())
+                    {
+                        Toast.makeText(getContext(), response.body()+"", Toast.LENGTH_SHORT).show();
+                        dismiss();
+
+                    }
+                    else {
+                        Toast.makeText(getContext(), response.body()+""+"123", Toast.LENGTH_SHORT).show();
+                        dismiss();
+
+                    }
                 }
 
                 @Override
-                public void onFailure(Call<Model_login> call, Throwable t) {
+                public void onFailure(Call<com.example.webapp.ui.viewModel.Post> call, Throwable t) {
                     Toast.makeText(getContext(), t.getMessage().toString(), Toast.LENGTH_SHORT).show();
                 }
             });
 
-            dismiss();
         }
     }
 
@@ -170,10 +211,10 @@ public class CustomDialog_add_data extends DialogFragment {
             Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-//        if (bitmap == null || bitmap.getWidth() == 0 || bitmap.getHeight() == 0) {
-//            Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
-//            isValid = false;
-//        }
+        if (bitmap == null || bitmap.getWidth() == 0 || bitmap.getHeight() == 0) {
+            Toast.makeText(getContext(), "مقادیر وارد شده نامعتبر", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
 
         return isValid;
     }

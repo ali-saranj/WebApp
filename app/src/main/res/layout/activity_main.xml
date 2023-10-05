@@ -17,13 +17,6 @@
         app:navGraph="@navigation/nav_graph" />
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toTopOf="@id/card_nav"
-        app:layout_constraintRight_toRightOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_add_post"
@@ -31,9 +24,11 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:src="@drawable/ic_add"
-            app:backgroundTint="@color/white" />
+            app:backgroundTint="@color/white"
+            android:layout_margin="15dp"
+            app:layout_constraintBottom_toTopOf="@id/card_nav"
+            app:layout_constraintRight_toRightOf="parent"/>
 
-    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_nav"

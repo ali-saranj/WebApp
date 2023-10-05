@@ -55,6 +55,7 @@ public class ItemPostAdapter extends RecyclerView.Adapter<ItemPostAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         public ItemPostBinding itemRowBinding;
 
+
         public ViewHolder(ItemPostBinding itemRowBinding) {
             super(itemRowBinding.getRoot());
             this.itemRowBinding = itemRowBinding;

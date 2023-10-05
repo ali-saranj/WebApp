@@ -7,7 +7,9 @@
         <import type="com.example.webapp.ui.viewModel.Post"/>
         <variable
             name="post"
-            type="Post" />
+            type="Post"
+
+            />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -22,6 +24,15 @@
             android:background="@color/white"
             android:padding="8dp">
 
+            <ImageView
+                android:id="@+id/tv_image"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                tools:ignore="MissingConstraints"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:src="@{post.image}"
+                />
+
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
@@ -30,8 +41,10 @@
                 tools:text="title"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                app:layout_constraintRight_toRightOf="@id/tv_image"
+                app:layout_constraintTop_toBottomOf="@id/tv_image"
+                app:layout_constraintLeft_toLeftOf="parent"
+                />
 
             <TextView
                 android:id="@+id/tv_dis"
