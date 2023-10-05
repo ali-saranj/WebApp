@@ -33,7 +33,6 @@ import retrofit2.Response;
 public class ShowAllPostFragment extends Fragment {
 
     FragmentShowAllPostBinding binding;
-    private SwipeRefreshLayout swipeRefreshLayout;
     List<com.example.webapp.ui.viewModel.Post> modelProducts;
     private SearchView searchView;
 
@@ -44,9 +43,8 @@ public class ShowAllPostFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentShowAllPostBinding.inflate(inflater, container, false);
 
-        binding.SwipeRefresh.findViewById(R.id.Swipe_Refresh);
-        swipeRefreshLayout = binding.SwipeRefresh;
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        sharedpreferencesUser = new SharedpreferencesUser(getContext());
+        binding.SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onRefresh() {
@@ -57,7 +55,7 @@ public class ShowAllPostFragment extends Fragment {
                 //adaptor.notifyDataSetChanged();
 
 
-                swipeRefreshLayout.setRefreshing(false);
+                binding.SwipeRefresh.setRefreshing(false);
             }
         });
 
