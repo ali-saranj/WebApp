@@ -3,10 +3,12 @@ package com.example.webapp.ui.fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.example.webapp.data.model.retrofit.Post;
 import com.example.webapp.data.sharedpreferences.SharedpreferencesUser;
 import com.example.webapp.databinding.FragmentShowAllPostBinding;
 import com.example.webapp.ui.adapter.ItemPostAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,25 +41,28 @@ public class ShowAllPostFragment extends Fragment {
 
     private SharedpreferencesUser sharedpreferencesUser;
     private String username;
+    FloatingActionButton btnAdd;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentShowAllPostBinding.inflate(inflater, container, false);
 
+        btnAdd = getActivity().findViewById(R.id.btn_add_post);
+
         sharedpreferencesUser = new SharedpreferencesUser(getContext());
-        binding.SwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onRefresh() {
-                getData();
 
-                //Ali
+        getData();
 
-                //adaptor.notifyDataSetChanged();
+        binding.SwipeRefresh.setOnRefreshListener(() -> {
+            getData();
+
+            //Ali
+
+            //adaptor.notifyDataSetChanged();
 
 
-                binding.SwipeRefresh.setRefreshing(false);
-            }
+            binding.SwipeRefresh.setRefreshing(false);
         });
 
 
@@ -82,8 +88,22 @@ public class ShowAllPostFragment extends Fragment {
             }
         });
 
+        binding.rvAll.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-        getData();
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    btnAdd.hide();
+                }else {
+                    btnAdd.show();
+                }
+            }
+        });
 
         return binding.getRoot();
     }
