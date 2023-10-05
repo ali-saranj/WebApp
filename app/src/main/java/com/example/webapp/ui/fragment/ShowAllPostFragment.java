@@ -36,9 +36,7 @@ import retrofit2.Response;
 public class ShowAllPostFragment extends Fragment {
 
     FragmentShowAllPostBinding binding;
-    List<com.example.webapp.ui.viewModel.Post> modelProducts;
-    private SearchView searchView;
-
+    List<Post> modelProducts;
     private SharedpreferencesUser sharedpreferencesUser;
     private String username;
     FloatingActionButton btnAdd;
@@ -54,16 +52,7 @@ public class ShowAllPostFragment extends Fragment {
 
         getData();
 
-        binding.SwipeRefresh.setOnRefreshListener(() -> {
-            getData();
-
-            //Ali
-
-            //adaptor.notifyDataSetChanged();
-
-
-            binding.SwipeRefresh.setRefreshing(false);
-        });
+        binding.SwipeRefresh.setOnRefreshListener(this::getData);
 
 
         //getUsernameForShow
@@ -71,9 +60,7 @@ public class ShowAllPostFragment extends Fragment {
 
 
         //SearchView
-        searchView = binding.searchView.findViewById(R.id.search_view);
-        searchView.clearFocus();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 return false;
@@ -81,27 +68,8 @@ public class ShowAllPostFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
                 search_view(newText);
-
-                return true;
-            }
-        });
-
-        binding.rvAll.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
-                    btnAdd.hide();
-                }else {
-                    btnAdd.show();
-                }
+                return false;
             }
         });
 
@@ -113,11 +81,14 @@ public class ShowAllPostFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                 setUpRv(response.body());
+                modelProducts = response.body();
+                binding.SwipeRefresh.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
                 Toast.makeText(getContext(), "مشکل ارتباط با سرور", Toast.LENGTH_SHORT).show();
+                binding.SwipeRefresh.setRefreshing(false);
             }
         });
     }
@@ -137,11 +108,11 @@ public class ShowAllPostFragment extends Fragment {
 
 
     private void search_view(String text) {
-        List<com.example.webapp.ui.viewModel.Post> filter_list = new ArrayList<>();
+        List<Post> filter_list = new ArrayList<>();
 
-        for (com.example.webapp.ui.viewModel.Post item : modelProducts) {
+        for (Post item : modelProducts) {
 
-            if (item.getTitle().toLowerCase().contains(text.toLowerCase())) {
+            if (item.getTitel().toLowerCase().contains(text.toLowerCase())) {
                 filter_list.add(item);
             }
 
@@ -152,9 +123,7 @@ public class ShowAllPostFragment extends Fragment {
         } else {
 
             //Ali
-
-//            ItemPostAdapter.setData(filter_list);
-
+            setUpRv(filter_list);
 
         }
 

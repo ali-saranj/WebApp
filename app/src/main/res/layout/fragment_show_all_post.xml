@@ -7,22 +7,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/search_view"
-        android:layout_width="373dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/search_view_bg"
-        android:hint="سرچ کنید ..."
-        tools:ignore="MissingConstraints" />
+  <androidx.appcompat.widget.SearchView
+      android:id="@+id/search"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
 
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/Swipe_Refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_view"
+        android:layout_below="@id/search"
         tools:ignore="MissingClass,MissingConstraints">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,8 +26,8 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:listitem="@layout/item_post"/>
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
