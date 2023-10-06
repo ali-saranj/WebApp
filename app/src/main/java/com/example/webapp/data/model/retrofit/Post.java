@@ -22,7 +22,15 @@ public class Post {
 	@SerializedName("id")
 	private String id;
 
-	public String getImage(){
+    public Post(com.example.webapp.ui.viewModel.Post item) {
+		id = item.getId();
+		description = item.getDescription();
+		username = item.getUsername();
+		titel = item.getTitle();
+		data = item.getData();
+    }
+
+    public String getImage(){
 		return image;
 	}
 
